@@ -47,7 +47,7 @@
        @{{ toggleText }}画面へ
    </button>
 </div>
-  <!--<script src="{{ secure_asset('js/app.js')}}"></script>-->
+<script src="{{ secure_asset('js/app.js')}}"></script>
 
 </body>
 </html>
