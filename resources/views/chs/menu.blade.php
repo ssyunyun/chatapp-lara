@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ja">
+<html>
   <head>
     <!--<link rel="stylesheet" href="{{ asset('css/style.css')}}">--> 
     <!--<script src ="js/jquery.min.js"></script>-->
