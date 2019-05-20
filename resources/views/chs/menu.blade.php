@@ -17,7 +17,6 @@
 
 <body>
 
-  <!--<script src="{{ secure_asset(('js/menu.js')}}"></script>-->
 </body>
         
 </html>
