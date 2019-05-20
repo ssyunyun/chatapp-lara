@@ -19,7 +19,7 @@
 
    <div class="ui segment">
        <form class="ui large form" v-on:submit.prevent="submit">
-
+       <!--@csrf-->
            <div class="field">
                <div class="ui left icon input">
                    <i class="user icon"></i>
