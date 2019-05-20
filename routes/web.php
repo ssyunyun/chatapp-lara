@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 /* ChsController */
 Route::get('/chs', 'ChsController@index');
-Route::get('/chs/menu', 'ChsController@menu');
+Route::get('/menu', 'ChsController@menu');
 Route::get('/chs/menu/mypage', 'ChsController@mypage');
 Route::get('/chs/menu/setting', 'ChsController@setting');
 
