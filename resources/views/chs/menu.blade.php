@@ -39,7 +39,7 @@
       </div>
     </div>
 
-  <!--<script src="{{ secure_asset(('js/menu.js')}}"></script>-->
+  <script src="{{ secure_asset(('js/menu.js')}}"></script>
   
   </body>
         
