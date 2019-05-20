@@ -59545,8 +59545,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]);
-url = "http://127.0.0.1:8000/";
+Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]); //url = "http://127.0.0.1:8000/";
+
+url = "https://chatapp-lara.herokuapp.com/";
 /*
 //自分のIDを取得
 var userId = localStorage.getItem("userId");

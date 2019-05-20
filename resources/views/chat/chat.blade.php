@@ -65,7 +65,7 @@
 
     </div>
 
-    <script src="{{ asset('js/chat.js') }}"></script>
+    <script src="{{ secure_asset(('js/chat.js') }}"></script>
   </body>
    
     

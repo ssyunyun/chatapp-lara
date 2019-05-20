@@ -50,7 +50,7 @@
         </div>
       </div>
     </div>
-    <script src="{{ asset('js/mypage.js') }}"></script>
+    <script src="{{ secure_asset(('js/mypage.js') }}"></script>
 
   </body>
         

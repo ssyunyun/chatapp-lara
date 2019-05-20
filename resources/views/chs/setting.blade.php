@@ -80,7 +80,7 @@
         
       </div>
     </div>
-    <script src="{{ asset('js/setting.js')}}"></script>
+    <script src="{{ secure_asset(('js/setting.js')}}"></script>
   </body>
         
 </html>
