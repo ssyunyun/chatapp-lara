@@ -2,7 +2,7 @@ require('./bootstrap');
 window.Vue = require('vue');
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
-url = "http://127.0.0.1:8000/";
+url = "https://chatapp-lara.herokuapp.com/";
 var userId = localStorage.getItem("userId");
 
 //ログアウトしていない場合はログイン画面を飛ばす
