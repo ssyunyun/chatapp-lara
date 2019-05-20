@@ -6,7 +6,7 @@ url = "https://chatapp-lara.herokuapp.com/";
 var userId = localStorage.getItem("userId");
 
 //ログアウトしていない場合はログイン画面を飛ばす
-if(userId != '') location.href = url + "chs/menu/";
+//if(userId != '') location.href = url + "chs/menu/";
 
 
 const app = new Vue({

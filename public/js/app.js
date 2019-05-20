@@ -59416,8 +59416,8 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]);
 url = "https://chatapp-lara.herokuapp.com/";
 var userId = localStorage.getItem("userId"); //ログアウトしていない場合はログイン画面を飛ばす
+//if(userId != '') location.href = url + "chs/menu/";
 
-if (userId != '') location.href = url + "chs/menu/";
 var app = new Vue({
   el: "#app",
   // Vue.jsを使うタグのIDを指定
