@@ -16,7 +16,7 @@
   </head>
 
 <body>
-  <div class="ui text container" id="menu">
+  <div class="ui text container">
   </div>
 
   <!--<script src="{{ secure_asset(('js/menu.js')}}"></script>-->
