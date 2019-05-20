@@ -3,140 +3,176 @@ window.Vue = require('vue');
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 url = "https://chatapp-lara.herokuapp.com/";
-var userId = localStorage.getItem("userId");
 
-//ログアウトしていない場合はログイン画面を飛ばす
-//if(userId != '') location.href = url + "chs/menu/";
+var val = localStorage.getItem("userId");
+console.log("id = " + val);
 
-
-const app = new Vue({
-  el: "#app", // Vue.jsを使うタグのIDを指定
+const menu = new Vue({
+  el: "#menu", // Vue.jsを使うタグのIDを指定
   data: {
       // Vue.jsで使う変数はここに記述する
-      mode: "login",
-      submitText: "ログイン",
-      toggleText: "新規登録",
-      user:{
-          userName: null,
-          password: null,
-          passAgain: null
-      },
+      userId: val,
+      groups: [],
+      groupIds: []
+
   },
   methods: {
       // Vue.jsで使う関数はここで記述する
-      toggleMode: function() {
-          if (app.mode == "login") {
-              app.mode = "signup";
-              app.submitText = "新規登録";
-              app.toggleText = "ログイン";
-          } else if (app.mode == "signup") {
-              app.mode = "login";
-              app.submitText = "ログイン";
-              app.toggleText = "新規登録";
-          }
-      },
+      window:onload = function() {
 
-      submit: function() {
-          if (app.mode == "login") {
-            /* ============ ログイン処理 ============ */
-            console.log("login処理");
-
-                fetch(url + "api/chs/login", {
+            /* ============ データベースからグループ情報を取得する ============ */
+                fetch(url + "api/chs/menu_db", {
                   method: "POST",
                   headers: {
                       'Content-Type':'application/json'
                   },
                   body: JSON.stringify({
-                      "userName": app.user.userName,
-                      "password": app.user.password
+                      "userId": menu.userId
                   })
               })
                   .then(function(response) {
+                      console.log("response受け取ったよ");
                       console.log(response);
                       if (response.status == 200) {
                           return response.json();
                       }
                       // 200番以外のレスポンスはエラーを投げる
                       return response.json().then(function(json) {
+                        console.log("200以外だよ");
                           throw new Error(json.message);
                       });
                   })
                   .then(function(json) {
                       // レスポンスが200番で返ってきたときの処理はここに記述する
-                      var content = JSON.stringify(json, null, 2);
-                      //console.log(content);
+                      console.log("200返ってきたよ");
+                      var content = JSON.stringify(json, null, 2);            
+                      var group = json[0]['groups'];
+                      var group_id = json[0]['groups_id'];
+         
+                      //連結した文字列をセパレートする
+                      group_split = separateString(group);
+                      group_id_split = separateString(group_id);
+                      
+                      menu.groups = group_split;
+                      menu.groupIds = group_id_split;
 
-                      if(content != '0'){                   
-                        localStorage.setItem('userId', json[0]['id']); 
-                        localStorage.setItem('userName', app.user.userName);         
-                        location.href = url + "chs/menu/";
-                      }
                     })
                   .catch(function(err) {
                       // レスポンスがエラーで返ってきたときの処理はここに記述する
+                      console.log("エラーだよ");
                   });
 
-            /* ============ アカウント作成処理 ============ */
-          } else if (app.mode == "signup") {
-            console.log("アカウント作成処理");
+      },
 
-              //パスワード不一致の処理
-              if(app.user.password != app.user.passAgain) {
-                alert('パスワードに誤りがあります。');
-              } else if (app.user.password.length < 4 || app.user.password.length > 16){
-                alert('パスワードは4文字以上、16文字以下で入力してください。');
-              } 
-              else  //パスワードが一致していたらアカウント作成のリクエストを送る
-              {
-                // APIにPOSTリクエストを送る
-                fetch(url + "api/chs/create", {
-                    method: "POST",
-                    headers: {
-                        'Content-Type':'application/json',
-                    },
-                    body: JSON.stringify({
-                        "userName": app.user.userName,
-                        "password": app.user.password
-                    })
-                })
-                    .then(function(response) {
-                        console.log(response);
-                        if (response.status == 200) {
-                            return response.json();
-                        }
-                        // 200番以外のレスポンスはエラーを投げる
-                        return response.json().then(function(json) {
-                            throw new Error(json.message);
-                        });
-                    })
-                    .then(function(json) {
-                        // レスポンスが200番で返ってきたときの処理はここに記述する
-                        //console.log("200が返ってきたよ");
-                        var content = JSON.stringify(json, null, 2);
-                        console.log(content);//returnした内容表示できる
-                   
-                        if(content != '0'){
-                            //localStorage.setItem('token', json.token);
-                            localStorage.setItem('userId', json[0]['id']);
-                            localStorage.setItem('userName', app.user.userName);         
-                            location.href=url + "chs/menu/";
-                        } else {
-                            alert("そのユーザー名は既に使われています");
-                        }
-                    })
-                    .catch(function(err) {
-                        // レスポンスがエラーで返ってきたときの処理はここに記述する
-                        console.log("エラーが返ってきたよ");
-                    });
+    selectGroup: function(id) {
+        //グループ選択したときの処理を書く
+
+        console.log(id);//配列の番号
+
+        var groupId = menu.groupIds[id];//配列の番号に対応するグループ固有のIDを取得
+        var groupName = menu.groups[id];//配列の番号に対応するグループ名を取得
+        
+        console.log(groupName);
+        localStorage.setItem('groupId', groupId);
+        localStorage.setItem('groupName', groupName);
+        location.href=url + "chs/menu/chat";
+
+
+
+        /*
+        fetch(url + "api/chs/menu/chatInfo", {
+            method: "POST",
+            headers: {
+                'Content-Type':'application/json'
+            },
+            body: JSON.stringify({
+                "groupId": groupId
+            })
+        })
+            .then(function(response) {
+                console.log("response受け取ったよ");
+                //console.log(response);
+                if (response.status == 200) {
+                    return response.json();
                 }
-          }
-      }
-  },
+                // 200番以外のレスポンスはエラーを投げる
+                return response.json().then(function(json) {
+                  console.log("200以外だよ");
+                    throw new Error(json.message);
+                });
+            })
+            .then(function(json) {
+                // レスポンスが200番で返ってきたときの処理はここに記述する
+                console.log("200返ってきたよ");
+                var content = JSON.stringify(json, null, 2);
+                console.log(content);//returnした内容表示できる            
+   
+                //location.href=url + "chs/menu/chat";
+              })
+            .catch(function(err) {
+                // レスポンスがエラーで返ってきたときの処理はここに記述する
+                console.log("エラーだよ");
+            });
+            */
+    },
 
-  created: function() {
-      // Vue.jsの読み込みが完了したときに実行する処理はここに記述する
-  },
-  computed: {//passwordの長さを調べる
+    
+    selectMypage: function() {
+        
+        console.log("selectMypage処理");
+        //マイページを選択したときの処理を書く
+        fetch(url + "api/chs/menu_db", {
+            method: "POST",
+            headers: {
+                'Content-Type':'application/json'
+            },
+            body: JSON.stringify({
+                "userId": menu.userId
+            })
+        })
+            .then(function(response) {
+                console.log("response受け取ったよ");
+                console.log(response);
+                if (response.status == 200) {
+                    return response.json();
+                }
+                // 200番以外のレスポンスはエラーを投げる
+                return response.json().then(function(json) {
+                  console.log("200以外だよ");
+                    throw new Error(json.message);
+                });
+            })
+            .then(function(json) {
+                // レスポンスが200番で返ってきたときの処理はここに記述する
+                console.log("200返ってきたよ");
+                var content = JSON.stringify(json, null, 2);
+                console.log(content);//returnした内容表示できる            
+   
+                localStorage.setItem('userName', json[0]['name']);
+                localStorage.setItem('userPassword', json[0]['password']);
+                localStorage.setItem('userIcon', json[0]['icon']);
+                location.href=url + "chs/menu/mypage";
+              })
+            .catch(function(err) {
+                // レスポンスがエラーで返ってきたときの処理はここに記述する
+                console.log("エラーだよ");
+            });
+    },
+
+    selectSetting: function() {
+        //設定を選択したときの処理を書く
+        console.log("selectSetting処理");
+        location.href=url + "chs/menu/setting";
+    },
+
+
+
+
   },
 
 });
+
+function separateString(contents) {
+    contents_sp = contents.split(",");
+    return contents_sp;
+  }
