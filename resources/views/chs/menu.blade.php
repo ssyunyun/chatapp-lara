@@ -15,11 +15,11 @@
     <title>Main Menu</title>
   </head>
 
-  <body>
-    <div class="ui text container" id = "menu">
-    </div>
+<body>
+  <div class="ui text container" id="menu">
+  </div>
 
   <!--<script src="{{ secure_asset(('js/menu.js')}}"></script>-->
-  </body>
+</body>
         
 </html>
