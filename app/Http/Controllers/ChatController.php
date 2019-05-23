@@ -12,13 +12,19 @@ class ChatController extends Controller
 {
 
     public function create(Request $request) { // メッセージを登録
-
+        
+        $time = Carbon::now();
         \App\Talkinfo::create([
             'comment' => $request->comment,
             'groupid' => $request->groupId,
             'userid' => $request->userId,
             'username' => $request->userName,
+            'created_at' => $time,
+            'updated_at' => $time
         ]);
+
+        //Groupの'updated_at'を更新
+        \App\Groupinfo::where('id', $request->groupId)->update(['updated_at' => $time]);
 
         event (new CommentCreated($request->groupId));
     }
@@ -27,7 +33,7 @@ class ChatController extends Controller
 
         $id = $_GET["Id"];
 
-        $data = \App\Talkinfo::where('userid', $id)->get();
+        $data = \App\Talkinfo::where('groupid', $id)->get();
         return $data;
     }
 

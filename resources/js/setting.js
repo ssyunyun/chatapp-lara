@@ -63,22 +63,17 @@ const setting = new Vue({
               	}
               	// 200番以外のレスポンスはエラーを投げる
               	return response.json().then(function(json) {
-                	console.log("200以外だよ");
                 	throw new Error(json.message);
               	});
           	})
           	.then(function(json) {
               	// レスポンスが200番で返ってきたときの処理はここに記述する
-              	console.log("200返ってきたよ");
-              	var content = JSON.stringify(json, null, 2);      
-              	console.log(content);
-
               	if(content == '1') alert("新規グループを作成しました！");
               	if(content == '0') alert("存在しないユーザー情報が含まれています");
             })
           	.catch(function(err) {
               	// レスポンスがエラーで返ってきたときの処理はここに記述する
-              	console.log("エラーだよ");
+              	console.log("Error.");
           	});
     	},//createGroup閉じ
 

@@ -116,7 +116,7 @@ class GroupController extends Controller
             $NewContent = $addedStr;
         } else {
             $NewContent = $content[0][$column].",".$addedStr;
-       }
+        }
         return $NewContent;      
     }
 

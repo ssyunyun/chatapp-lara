@@ -13,7 +13,7 @@
 
 /* View */
 Route::get('/login', function (){
-    return view('index');
+    return view('login');
 });
 Route::get('/menu', function (){
     return view('menu');
@@ -28,6 +28,9 @@ Route::get('/chat', function (){
     return view('chat');
 });
 
+
+/* UserController */
+Route::get('/getInfo', 'UserController@getInfo');
 
 /* ChatController */
 Route::get('/getComments', 'ChatController@getComments');// メッセージ一覧を取得

@@ -13,9 +13,12 @@ class UserinfosTableSeeder extends Seeder
     {
         for($i = 1 ; $i <= 4 ; $i++) {
 
+            $password = 'user'.$i;
+            $hashedPassword = hash('sha256',$password);
+
             \App\Userinfo::create([
                 'username' => 'user'.$i,
-                'password' => 'user'.$i,
+                'password' => $hashedPassword,
                 'groupid' => $i,
                 'groupname' => 'test'.$i,
             ]);

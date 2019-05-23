@@ -59571,7 +59571,7 @@ var mypage = new Vue({
       } else //新規のパスワードが問題なければ、既存のパスワードが正しいかチェックして変更する
         {
           fetch(url + "api/changePass", {
-            method: "POST",
+            method: "PATCH",
             headers: {
               'Content-Type': 'application/json'
             },

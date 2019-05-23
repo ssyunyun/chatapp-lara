@@ -59560,14 +59560,8 @@ var menu = new Vue({
   methods: {
     window: onload = function onload() {
       /* ============ データベースからグループ情報を取得する ============ */
-      fetch(url + "api/getInfo", {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          "userId": menu.userId
-        })
+      fetch(url + "getInfo?Id=" + menu.userId, {
+        method: "GET"
       }).then(function (response) {
         console.log(response);
 
@@ -59593,6 +59587,7 @@ var menu = new Vue({
           menu.groupIds = group_id_split;
           noGroupFlag = 0;
         } else {
+          //グループに所属していなかったらメッセージを表示させる
           menu.noGroupFlag = 1;
         }
       })["catch"](function (err) {
@@ -59612,37 +59607,8 @@ var menu = new Vue({
       location.href = url + "chat";
     },
     selectMypage: function selectMypage() {
-      console.log("selectMypage処理"); //マイページを選択したときの処理を書く
-
-      fetch(url + "api/getInfo", {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          "userId": menu.userId
-        })
-      }).then(function (response) {
-        console.log(response);
-
-        if (response.status == 200) {
-          return response.json();
-        } // 200番以外のレスポンスはエラーを投げる
-
-
-        return response.json().then(function (json) {
-          throw new Error(json.message);
-        });
-      }).then(function (json) {
-        // レスポンスが200番で返ってきたときの処理はここに記述する
-        var content = JSON.stringify(json, null, 2);
-        console.log(content);
-        localStorage.setItem('userPassword', json[0]['password']); //localStorage.setItem('userIcon', json[0]['icon']);
-
-        location.href = url + "mypage";
-      })["catch"](function (err) {
-        console.log("Error.");
-      });
+      console.log("selectMypage処理");
+      location.href = url + "mypage";
     },
     selectSetting: function selectSetting() {
       //設定を選択したときの処理を書く
