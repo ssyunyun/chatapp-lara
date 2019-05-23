@@ -6,7 +6,7 @@
 		<meta name="csrf-token" content="{{ csrf_token() }}">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css">
 		@if(app('env')=='local')
-		   <link rel="stylesheet" href="{{ secure_asset('css/vue.css')}}">
+		   <link rel="stylesheet" href="{{ asset('css/vue.css')}}">
        @endif
        @if(app('env')=='production')
 		   <link rel="stylesheet" href="{{ secure_asset('css/vue.css')}}">
@@ -49,18 +49,16 @@
 		</div>
 	</div>
 	@if(app('env')=='local')
-           <script type="text/javascript">
-               const url = "http://127.0.0.1:8000/";
-           </script>
-           <script src="{{asset('js/app.js')}}" ></script>
-		   <link rel="stylesheet" href="{{ secure_asset('css/vue.css')}}">
-       @endif
-       @if(app('env')=='production')
-           <script type="text/javascript">
-               const url = "https://chatapp-lara.herokuapp.com/";
-           </script>
-           <script src="{{secure_asset('js/app.js')}}" ></script>
-		   <link rel="stylesheet" href="{{ secure_asset('css/vue.css')}}">
-       @endif
+		<script type="text/javascript">
+			const url = "http://127.0.0.1:8000/";
+        </script>
+        <script src="{{asset('js/app.js')}}" ></script>
+    @endif
+    @if(app('env')=='production')
+        <script type="text/javascript">
+            const url = "https://chatapp-lara.herokuapp.com/";
+        </script>
+        <script src="{{secure_asset('js/app.js')}}" ></script>
+    @endif
 	</body>
 </html>
