@@ -22,7 +22,9 @@
       <h2>グループ一覧</h2>
       <div class="ui list" v-for="(list, i) in groups" v-cloak>
         <button class="ui large fluid button" v-on:click="selectGroup(i)">
-          @{{ list }}
+          <div v-cloak>
+            @{{ list }}
+          </div>
         </button>
       </div>
       <div class="field" v-if="noGroupFlag==1">

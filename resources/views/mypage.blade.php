@@ -21,7 +21,9 @@
         <button class="ui green button" v-on:click="logout">ログアウト</button>
         <h1 class="ui dividing header">My page</h1><br>
         <div class="ui center aligned grid">
-          <h1 class="ui header" v-cloak>@{{ userName }} ( ID : @{{ userId }} )</h1>
+          <div v-cloak>
+            <h1 class="ui header">@{{ userName }} ( ID : @{{ userId }} )</h1>
+          </div>
         </div>
         <div class="ui segment" v-cloak>
           <div class="field"><label>パスワード変更はこちら↓</label></div>
