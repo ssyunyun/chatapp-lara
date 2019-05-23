@@ -2,8 +2,6 @@ require('./bootstrap');
 window.Vue = require('vue');
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
-//url = "http://127.0.0.1:8000/";
-
 const setting = new Vue({
 	el: "#setting", 
   	data: {
@@ -34,15 +32,6 @@ const setting = new Vue({
 			Id_seq = adjustArray(Id_split);
 			if(Id_seq == 0) return 0;
 
-			/*
-			console.log("送るもの確認");
-			console.log(setting.groupName);
-			console.log(setting.groupComment);
-			console.log(Id_split);
-			console.log(Id_seq);
-			console.log("送るもの確認終了");
-			*/
-
 			fetch(url + "api/createGroup", {
 				method: "POST",
 				headers: {
@@ -58,7 +47,6 @@ const setting = new Vue({
 				})
 			})
           	.then(function(response) {
-                console.log("response受け取ったよ-----");
           	    console.log(response);
               	if (response.status == 200) {
                 	return response.json();
@@ -80,10 +68,6 @@ const setting = new Vue({
           	});
     	},//createGroup閉じ
 
-
-
-
-
     	inviteGroup: function() {
       		console.log("グループ招待処理");
 
@@ -94,8 +78,6 @@ const setting = new Vue({
 			Id_seq = adjustArray(Id_split);
             if(Id_seq == 0) return 0;
 
-            console.log("====================");
-            
 			fetch(url + "api/inviteGroup", {
 				method: "POST",
 				headers: {
@@ -112,7 +94,6 @@ const setting = new Vue({
 			.then(function(response) {
                 console.log(response);
 
-              
 				if (response.status == 200) {
 					return response.json();
 				}
@@ -136,26 +117,26 @@ const setting = new Vue({
 	},
 });
 
-function separateString(contents) {
-  console.log("separateString処理");
-  contents_sp = contents.split(",");
-  return contents_sp;
-}
 
+function separateString(contents) {
+	console.log("separateString処理");
+	contents_sp = contents.split(",");
+	return contents_sp;
+}
 
 
 function adjustArray(Id_split) {
-  console.log("adjustArray処理");
-  //セパレートした配列の調整(不適な場合はエラー)
-  for (var i = 0; i < Id_split.length; i++) {
-    if (isNaN(Id_split[i]) == true && Id_split[i] != ''){
-      alert("入力内容に誤りがあります");
-      return 0;
-    }
-    if (Id_split[i] == '') Id_split.splice(i,1);//空の要素は削除    
-}
-console.log("kokodayo");
-//調整した配列から正しい文字列に繋ぎなおす
+	console.log("adjustArray処理");
+	//セパレートした配列の調整(不適な場合はエラー)
+	for (var i = 0; i < Id_split.length; i++) {
+    	if (isNaN(Id_split[i]) == true && Id_split[i] != ''){
+			alert("入力内容に誤りがあります");
+			return 0;
+		}
+   		if (Id_split[i] == '') Id_split.splice(i,1);//空の要素は削除    
+	}
+
+	//調整した配列から正しい文字列に繋ぎなおす
     for (var i = 0; i < Id_split.length; i++) {
         if(i == 0) {
             Id_seq = Id_split[i];

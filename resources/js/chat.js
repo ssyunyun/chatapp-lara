@@ -2,8 +2,6 @@ require('./bootstrap');
 window.Vue = require('vue');
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
-//url = "http://127.0.0.1:8000/";
-
 //保存した情報を取得
 var userId = localStorage.getItem("userId");
 var userName = localStorage.getItem("userName");

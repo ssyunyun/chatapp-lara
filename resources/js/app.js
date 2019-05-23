@@ -2,8 +2,6 @@ require('./bootstrap');
 window.Vue = require('vue');
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
-//url = "http://127.0.0.1:8000/";
-
 const app = new Vue({
     el: "#app",
     data: {
