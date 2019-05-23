@@ -52,12 +52,14 @@
                const url = "http://127.0.0.1:8000/";
            </script>
            <script src="{{asset('js/chat.js')}}" ></script>
+           <link rel="stylesheet" href="{{ asset('css/vue.css')}}">
        @endif
        @if(app('env')=='production')
            <script type="text/javascript">
                const url = "https://chatapp-lara.herokuapp.com/";
            </script>
            <script src="{{secure_asset('js/chat.js')}}" ></script>
+           <link rel="stylesheet" href="{{ secure_asset('css/vue.css')}}">
        @endif
   </body>  
 </html>
