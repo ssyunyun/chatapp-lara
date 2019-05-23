@@ -5,7 +5,12 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 		<meta name="csrf-token" content="{{ csrf_token() }}">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css">
-		
+		@if(app('env')=='local')
+		   <link rel="stylesheet" href="{{ secure_asset('css/vue.css')}}">
+       @endif
+       @if(app('env')=='production')
+		   <link rel="stylesheet" href="{{ secure_asset('css/vue.css')}}">
+       @endif
 		<title>Login</title>
 	</head>
 
