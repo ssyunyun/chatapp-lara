@@ -2,7 +2,7 @@ require('./bootstrap');
 window.Vue = require('vue');
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
-url = "http://127.0.0.1:8000/";
+//url = "http://127.0.0.1:8000/";
 
 const setting = new Vue({
 	el: "#setting", 
@@ -46,8 +46,10 @@ const setting = new Vue({
 			fetch(url + "api/createGroup", {
 				method: "POST",
 				headers: {
-					'Content-Type':'application/json'
-				},
+					'Content-Type':'application/json',
+                    'userId': localStorage.getItem('userId'),
+                    'token': localStorage.getItem('token')
+                },
 				body: JSON.stringify({
 					"groupName": setting.groupName,
 					"groupComment": setting.groupComment,
@@ -67,6 +69,7 @@ const setting = new Vue({
               	});
           	})
           	.then(function(json) {
+				var content = JSON.stringify(json, null, 2);  
               	// レスポンスが200番で返ってきたときの処理はここに記述する
               	if(content == '1') alert("新規グループを作成しました！");
               	if(content == '0') alert("存在しないユーザー情報が含まれています");
@@ -96,8 +99,10 @@ const setting = new Vue({
 			fetch(url + "api/inviteGroup", {
 				method: "POST",
 				headers: {
-					'Content-Type':'application/json'
-				},
+					'Content-Type':'application/json',
+                    'userId': localStorage.getItem('userId'),
+                    'token': localStorage.getItem('token')
+                },
 				body: JSON.stringify({
 					"invitedGroupId": setting.invitedGroupId,
 					"Id_split": Id_split,

@@ -2,7 +2,7 @@ require('./bootstrap');
 window.Vue = require('vue');
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
-url = "http://127.0.0.1:8000/";
+//url = "http://127.0.0.1:8000/";
 
 var userId = localStorage.getItem("userId");
 var userName = localStorage.getItem("userName");
@@ -33,6 +33,8 @@ const mypage = new Vue({
                     method: "PATCH",
                     headers: {
                         'Content-Type':'application/json',
+                        'userId': localStorage.getItem('userId'),
+                        'token': localStorage.getItem('token')
                     },
                     body: JSON.stringify({
                         "userId": mypage.userId,

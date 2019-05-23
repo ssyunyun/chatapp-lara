@@ -59413,8 +59413,8 @@ module.exports = function(module) {
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]);
-url = "http://127.0.0.1:8000/";
+Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]); //url = "http://127.0.0.1:8000/";
+
 var app = new Vue({
   el: "#app",
   data: {
@@ -59468,8 +59468,9 @@ var app = new Vue({
           console.log(content); //returnした内容表示できる
           //ユーザデータを受け取れていない場合は.catchの処理へ
 
-          localStorage.setItem('userId', json[0]['id']);
-          localStorage.setItem('userName', json[0]['username']);
+          localStorage.setItem('userId', json[0][0]['id']);
+          localStorage.setItem('userName', json[0][0]['username']);
+          localStorage.setItem('token', json[1]);
           location.href = url + "menu";
         })["catch"](function (err) {
           alert("入力内容に誤りがあります");
@@ -59508,8 +59509,9 @@ var app = new Vue({
               console.log(content); //returnした内容表示できる
               //localStorage.setItem('token', json.token);
 
-              localStorage.setItem('userId', json[0]['id']);
-              localStorage.setItem('userName', app.user.userName);
+              localStorage.setItem('userId', json[0][0]['id']);
+              localStorage.setItem('userName', json[0][0]['username']);
+              localStorage.setItem('token', json[1]);
               location.href = url + "menu";
             })["catch"](function (err) {
               alert("このユーザー名は既に使われています");

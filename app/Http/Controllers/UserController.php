@@ -18,6 +18,7 @@ class UserController extends Controller
         $userName = $body['userName'];
         $password = $body['password'];
         $time = Carbon::now();
+        $token = str::random(10);
 
         $hashedPassword = hash('sha256',$password);
  
@@ -34,7 +35,12 @@ class UserController extends Controller
         }
         //ユーザー情報を返す
         $data = \App\Userinfo::where('username', $userName)->get();
-        return $data;
+
+        $userId = $data[0]->id;
+        $controller = new SessionController;//インスタンス化
+        
+        $controller->startSession($userId, $token);
+        return [$data, $token];
     }
 
     /*========== ログイン処理 ==========*/
@@ -53,12 +59,12 @@ class UserController extends Controller
         $data = \App\Userinfo::where('username', $userName)
             ->where('password', $hashedPassword)
             ->get();
-
+        
+        $userId = $data[0]->id;
         $controller = new SessionController;//インスタンス化
         
-        $a = $controller->startSession($userId, $token);
+        $controller->startSession($userId, $token);
 
-        return 1;
         return [$data, $token];
     }
 

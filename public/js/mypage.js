@@ -59545,8 +59545,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]);
-url = "http://127.0.0.1:8000/";
+Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]); //url = "http://127.0.0.1:8000/";
+
 var userId = localStorage.getItem("userId");
 var userName = localStorage.getItem("userName");
 console.log(userId);
@@ -59573,7 +59573,9 @@ var mypage = new Vue({
           fetch(url + "api/changePass", {
             method: "PATCH",
             headers: {
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
+              'userId': localStorage.getItem('userId'),
+              'token': localStorage.getItem('token')
             },
             body: JSON.stringify({
               "userId": mypage.userId,

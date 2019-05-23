@@ -47,6 +47,17 @@
         </form>
       </div>
     </div>
-    <script src="{{ asset('js/chat.js') }}"></script>
+    @if(app('env')=='local')
+           <script type="text/javascript">
+               const url = "http://127.0.0.1:8000/";
+           </script>
+           <script src="{{asset('js/chat.js')}}" ></script>
+       @endif
+       @if(app('env')=='production')
+           <script type="text/javascript">
+               const url = "https://chatapp-lara.herokuapp.com/";
+           </script>
+           <script src="{{secure_asset('js/chat.js')}}" ></script>
+       @endif
   </body>  
 </html>

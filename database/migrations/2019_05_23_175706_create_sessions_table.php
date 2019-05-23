@@ -18,6 +18,7 @@ class CreateSessionsTable extends Migration
             $table->string('key',191)->unique();
             $table->string('token');
             $table->timestamp('lastvisit');
+            $table->timestamps();
         });
     }
 

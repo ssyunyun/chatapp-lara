@@ -22,6 +22,8 @@ Route::group(['middleware' => ['api']], function(){
 
     /* SessionController */
     Route::group(['middleware' => ['check.session', 'update.session']], function(){
+        Route::get('/getInfo', 'UserController@getInfo');
+        Route::get('/getComments', 'ChatController@getComments');// メッセージ一覧を取得
 
         Route::patch('/changePass', 'UserController@changePass');
         Route::post('/createGroup', 'GroupController@createGroup');

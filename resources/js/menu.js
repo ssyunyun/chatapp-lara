@@ -2,7 +2,7 @@ require('./bootstrap');
 window.Vue = require('vue');
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
-url = "http://127.0.0.1:8000/";
+//url = "http://127.0.0.1:8000/";
 
 var key = localStorage.getItem("userId");
 console.log("id = " + key);
@@ -18,8 +18,12 @@ const menu = new Vue({
     methods: {
         window:onload = function() {
             /* ============ データベースからグループ情報を取得する ============ */
-            fetch(url + "getInfo?Id="+menu.userId, {
-                method: "GET"
+            fetch(url + "api/getInfo?Id="+menu.userId, {
+                method: "GET",
+                headers: {
+                    'userId': localStorage.getItem('userId'),
+                    'token': localStorage.getItem('token')
+                }
             })
             .then(function(response) {
                 console.log(response);

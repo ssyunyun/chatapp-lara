@@ -11,7 +11,12 @@
 
   <body>
     <div class="ui text container">
-    <a href="#" class="ui green button" onclick="javascript:window.history.back(-1);return false;">戻る</a>  
+    @if(app('env')=='local')
+      <a href="http://127.0.0.1:8000/menu" class="ui green button">戻る</a> 
+    @endif
+    @if(app('env')=='production')
+       <a href="https://chatapp-lara.herokuapp.com/menu" class="ui green button">戻る</a> 
+    @endif
     <h1 class="ui dividing header">Setting</h1><br>
       <div class="ui main container" id="setting">
         <div class="ui large buttons">
@@ -68,6 +73,17 @@
         </div>
       </div>
     </div>
-    <script src="{{ asset('js/setting.js') }}"></script>
+    @if(app('env')=='local')
+           <script type="text/javascript">
+               const url = "http://127.0.0.1:8000/";
+           </script>
+           <script src="{{asset('js/setting.js')}}" ></script>
+       @endif
+       @if(app('env')=='production')
+           <script type="text/javascript">
+               const url = "https://chatapp-lara.herokuapp.com/";
+           </script>
+           <script src="{{secure_asset('js/setting.js')}}" ></script>
+       @endif
   </body>       
 </html>

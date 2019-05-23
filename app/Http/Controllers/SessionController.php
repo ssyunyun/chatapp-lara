@@ -12,15 +12,17 @@ class SessionController extends Controller
         //login時にセッション情報を作成or更新
         $time = Carbon::now();
 
-        return 1;
-        $check = \App\Session::where('id', $userId)->get();
+        $check = \App\Session::where('key', $userId)->get();
+       
         if(count($check)==1){//セッション情報があったらupdate
-            \App\Session::where('id', $userId)->update(['lastvisit' => $time]);
-            \App\Session::where('id', $userId)->update(['token' => $token]);
+            
+            \App\Session::where('key', $userId)->update(['lastvisit' => $time]);
+            \App\Session::where('key', $userId)->update(['token' => $token]);
 
             
 
         } else {//セッション情報が無かったらinsert
+         
             \App\Session::create([
                 'key' => $userId,
                 'token' => $token,
@@ -28,7 +30,7 @@ class SessionController extends Controller
             ]);    
         }
 
-        $updateInfo = \App\Session::where('id', $userId)->get();
+        $updateInfo = \App\Session::where('key', $userId)->get();
         return $updateInfo;
     }
     
@@ -36,18 +38,24 @@ class SessionController extends Controller
         //操作するたび更新する
         $time = Carbon::now();
 
-        \App\Session::where('id', $userId)->update(['lastvisit' => $time]);
+        \App\Session::where('key', $userId)->update(['lastvisit' => $time]);
         
-        $updateInfo = \App\Session::where('id', $userId)->get();
+        $updateInfo = \App\Session::where('key', $userId)->get();
         return $updateInfo;
     }
 
-    public function checkSession($userId) {
+    public function checkSession($userId, $token) {
         //アクセスが来た時にセッション情報を確認
         $time = Carbon::now();
-        $checkTime = \App\Session::where('id', $userId)->get('lastvisit');
-        $diffTime = diffInMinutes($checkTime[0]['lastvisit']);
-
+        $sessionInfo = \App\Session::where('key', $userId)->get();
+        $checkTime = $sessionInfo[0]->lastvisit;
+        $checkToken = $sessionInfo[0]->token;
+        if ($checkToken!=$token) {
+            return 0;    
+        }
+        
+        $diffTime = $time->diffInMinutes($checkTime);
+        
         //最終アクセス日時との差が1時間以内であるかを判定
         if($diffTime <= 60){
             return 1;
@@ -61,9 +69,9 @@ class SessionController extends Controller
         $time = Carbon::now();
         
         //削除する情報を取得しておく
-        $updateInfo = \App\Session::where('id', $userId)->get();
+        $updateInfo = \App\Session::where('key', $userId)->get();
         //Delete
-        \App\Session::where('id', $userId)->delete();
+        \App\Session::where('key', $userId)->delete();
 
         return $updateInfo;
     }

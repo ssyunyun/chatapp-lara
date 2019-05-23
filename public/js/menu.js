@@ -59545,8 +59545,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]);
-url = "http://127.0.0.1:8000/";
+Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]); //url = "http://127.0.0.1:8000/";
+
 var key = localStorage.getItem("userId");
 console.log("id = " + key);
 var menu = new Vue({
@@ -59560,8 +59560,12 @@ var menu = new Vue({
   methods: {
     window: onload = function onload() {
       /* ============ データベースからグループ情報を取得する ============ */
-      fetch(url + "getInfo?Id=" + menu.userId, {
-        method: "GET"
+      fetch(url + "api/getInfo?Id=" + menu.userId, {
+        method: "GET",
+        headers: {
+          'userId': localStorage.getItem('userId'),
+          'token': localStorage.getItem('token')
+        }
       }).then(function (response) {
         console.log(response);
 

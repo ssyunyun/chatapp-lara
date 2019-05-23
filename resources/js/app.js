@@ -2,7 +2,7 @@ require('./bootstrap');
 window.Vue = require('vue');
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
-url = "http://127.0.0.1:8000/";
+//url = "http://127.0.0.1:8000/";
 
 const app = new Vue({
     el: "#app",
@@ -58,8 +58,9 @@ const app = new Vue({
                     console.log(content);//returnした内容表示できる
 
                     //ユーザデータを受け取れていない場合は.catchの処理へ
-                    localStorage.setItem('userId', json[0]['id']); 
-                    localStorage.setItem('userName', json[0]['username']);         
+                    localStorage.setItem('userId', json[0][0]['id']);
+                    localStorage.setItem('userName', json[0][0]['username']);
+                    localStorage.setItem('token', json[1]);       
                     location.href = url + "menu";
                 })
                 .catch(function(err) {
@@ -102,8 +103,9 @@ const app = new Vue({
                         console.log(content);//returnした内容表示できる
                     
                         //localStorage.setItem('token', json.token);
-                        localStorage.setItem('userId', json[0]['id']);
-                        localStorage.setItem('userName', app.user.userName);         
+                        localStorage.setItem('userId', json[0][0]['id']);
+                        localStorage.setItem('userName', json[0][0]['username']);
+                        localStorage.setItem('token', json[1]);         
                         location.href=url + "menu";
                     })
                     .catch(function(err) {

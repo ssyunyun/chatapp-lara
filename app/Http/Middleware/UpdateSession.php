@@ -18,7 +18,7 @@ class UpdateSession
     {
         $response = $next($request);
 
-        $userId = $request->header($userId);
+        $userId = $request->header('userId');
 
         $controller = new SessionController;//インスタンス化
         $controller->updateVisitTime($userId);

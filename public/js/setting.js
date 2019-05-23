@@ -59545,8 +59545,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]);
-url = "http://127.0.0.1:8000/";
+Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]); //url = "http://127.0.0.1:8000/";
+
 var setting = new Vue({
   el: "#setting",
   data: {
@@ -59585,7 +59585,9 @@ var setting = new Vue({
       fetch(url + "api/createGroup", {
         method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'userId': localStorage.getItem('userId'),
+          'token': localStorage.getItem('token')
         },
         body: JSON.stringify({
           "groupName": setting.groupName,
@@ -59606,7 +59608,8 @@ var setting = new Vue({
           throw new Error(json.message);
         });
       }).then(function (json) {
-        // レスポンスが200番で返ってきたときの処理はここに記述する
+        var content = JSON.stringify(json, null, 2); // レスポンスが200番で返ってきたときの処理はここに記述する
+
         if (content == '1') alert("新規グループを作成しました！");
         if (content == '0') alert("存在しないユーザー情報が含まれています");
       })["catch"](function (err) {
@@ -59626,7 +59629,9 @@ var setting = new Vue({
       fetch(url + "api/inviteGroup", {
         method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'userId': localStorage.getItem('userId'),
+          'token': localStorage.getItem('token')
         },
         body: JSON.stringify({
           "invitedGroupId": setting.invitedGroupId,

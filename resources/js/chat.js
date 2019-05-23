@@ -2,7 +2,7 @@ require('./bootstrap');
 window.Vue = require('vue');
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
-url = "http://127.0.0.1:8000/";
+//url = "http://127.0.0.1:8000/";
 
 //保存した情報を取得
 var userId = localStorage.getItem("userId");
@@ -25,8 +25,10 @@ const chat = new Vue({
  			fetch(url + "api/chat", {
 				method: "POST",
 				headers: {
-					'Content-Type':'application/json'
-				},
+					'Content-Type':'application/json',
+                    'userId': localStorage.getItem('userId'),
+                    'token': localStorage.getItem('token')
+                },
 				body: JSON.stringify({
 					"comment": chat.comment,
 					"groupId": groupId,
@@ -42,8 +44,12 @@ const chat = new Vue({
 
         getComments(groupId) {
 
-			fetch(url + "getComments?Id="+groupId, {
-				method: "GET",         
+			fetch(url + "api/getComments?Id="+groupId, {
+				method: "GET",
+				headers: {
+                    'userId': localStorage.getItem('userId'),
+                    'token': localStorage.getItem('token')
+                }         
 			})
             .then(function(response) {
                 if (response.status == 200) {
