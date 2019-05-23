@@ -13,23 +13,15 @@ use Illuminate\Http\Request;
 |
 */
 
-/*
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-*/
+/* UserController */
+Route::middleware('api')->post('/create', 'UserController@create');
+Route::middleware('api')->post('/login', 'UserController@login');
+Route::middleware('api')->post('/getInfo', 'UserController@getInfo');
+Route::middleware('api')->post('/changePass', 'UserController@changePass');
 
-Route::middleware('api')->post('/chs/create', 'ChsController@create');
-Route::middleware('api')->post('/chs/login', 'ChsController@login');
-Route::middleware('api')->post('/chs/menu_db', 'ChsController@databaseInfo');
-//Route::middleware('api')->post('/chs/menu/chat', 'ChsController@chat');
-Route::middleware('api')->post('/chs/menu/chat_db', 'ChatController@create');
-Route::middleware('api')->post('/chs/menu/mypage/changePass', 'ChsController@change');
-Route::middleware('api')->post('/chs/menu/setting/newGroup', 'ChsController@newGroup');
-Route::middleware('api')->post('/chs/menu/setting/invite', 'ChsController@invite');
+/* GroupController */
+Route::middleware('api')->post('/createGroup', 'GroupController@createGroup');
+Route::middleware('api')->post('/inviteGroup', 'GroupController@inviteGroup');
 
-//Route::middleware('api')->post('/chs/menu/chatInfo', 'ChatController@getTalk');
-
-
-
-
+/* ChatController */
+Route::middleware('api')->post('/chat', 'ChatController@create');

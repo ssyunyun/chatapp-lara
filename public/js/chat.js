@@ -59477,14 +59477,12 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]);
-url = "https://chatapp-lara.herokuapp.com/"; //自分のIDを取得
+url = "http://127.0.0.1:8000/"; //保存した情報を取得
 
 var userId = localStorage.getItem("userId");
-var userName = localStorage.getItem("userName"); //選択したグループのIdを取得
-
+var userName = localStorage.getItem("userName");
 var groupId = localStorage.getItem("groupId");
 var groupName = localStorage.getItem("groupName");
-console.log("groupId = " + groupId);
 var chat = new Vue({
   el: '#chat',
   data: {
@@ -59495,8 +59493,9 @@ var chat = new Vue({
     myAlign: ''
   },
   methods: {
+    //チャット送信処理
     send: function send() {
-      fetch(url + "api/chs/menu/chat_db", {
+      fetch(url + "api/chat", {
         method: "POST",
         headers: {
           'Content-Type': 'application/json'
@@ -59508,15 +59507,12 @@ var chat = new Vue({
           "userName": userName
         })
       }).then(function (response) {
-        console.log("response受け取ったあささｓわよ");
         console.log(response);
         chat.comment = '';
       });
-      console.log("send処理終了");
     },
     getComments: function getComments(groupId) {
-      //console.log(groupId);
-      fetch(url + "chs/menu/chatInfo?Id=" + groupId, {
+      fetch(url + "getComments?Id=" + groupId, {
         method: "GET"
       }).then(function (response) {
         if (response.status == 200) {
@@ -59533,10 +59529,10 @@ var chat = new Vue({
         console.log(chat.comments);
       })["catch"](function (err) {
         // レスポンスがエラーで返ってきたときの処理はここに記述する
-        console.log("レスポンスエラー");
+        console.log("Error.");
       });
     },
-    //自分のメッセージは右寄せに表示するためAlignを変更する
+    //自分の発言したメッセージは右寄せに表示するためAlignを変更する
     changeAlign: function changeAlign(index) {
       if (userId == chat.comments[index].userid) {
         chat.myAlign = 'right';
@@ -59545,7 +59541,7 @@ var chat = new Vue({
       }
     }
   },
-  //method終わり
+  //method閉じ
   mounted: function mounted() {
     this.getComments(groupId); //pusher処理
 

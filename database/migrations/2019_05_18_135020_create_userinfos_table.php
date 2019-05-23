@@ -15,10 +15,10 @@ class CreateUserinfosTable extends Migration
     {
         Schema::create('userinfos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->string('username')->unique();
             $table->string('password');
-            $table->string('groups_id')->nullable();
-            $table->string('groups')->nullable();
+            $table->string('groupid')->nullable();
+            $table->string('groupname')->nullable();
             $table->binary('icon')->nullable();
             $table->timestamps();
         });

@@ -59414,15 +59414,10 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]);
-url = "https://chatapp-lara.herokuapp.com/";
-var userId = localStorage.getItem("userId"); //ログアウトしていない場合はログイン画面を飛ばす
-//if(userId != '') location.href = url + "chs/menu/";
-
+url = "http://127.0.0.1:8000/";
 var app = new Vue({
   el: "#app",
-  // Vue.jsを使うタグのIDを指定
   data: {
-    // Vue.jsで使う変数はここに記述する
     mode: "login",
     submitText: "ログイン",
     toggleText: "新規登録",
@@ -59433,7 +59428,7 @@ var app = new Vue({
     }
   },
   methods: {
-    // Vue.jsで使う関数はここで記述する
+    //ログインと新規登録のモード変更
     toggleMode: function toggleMode() {
       if (app.mode == "login") {
         app.mode = "signup";
@@ -59449,7 +59444,7 @@ var app = new Vue({
       if (app.mode == "login") {
         /* ============ ログイン処理 ============ */
         console.log("login処理");
-        fetch(url + "api/chs/login", {
+        fetch(url + "api/login", {
           method: "POST",
           headers: {
             'Content-Type': 'application/json'
@@ -59466,19 +59461,18 @@ var app = new Vue({
           } // 200番以外のレスポンスはエラーを投げる
 
 
-          return response.json().then(function (json) {
-            throw new Error(json.message);
-          });
+          throw new Error();
         }).then(function (json) {
           // レスポンスが200番で返ってきたときの処理はここに記述する
-          var content = JSON.stringify(json, null, 2); //console.log(content);
+          var content = JSON.stringify(json, null, 2);
+          console.log(content); //returnした内容表示できる
+          //ユーザデータを受け取れていない場合は.catchの処理へ
 
-          if (content != '0') {
-            localStorage.setItem('userId', json[0]['id']);
-            localStorage.setItem('userName', app.user.userName);
-            location.href = url + "chs/menu/";
-          }
-        })["catch"](function (err) {// レスポンスがエラーで返ってきたときの処理はここに記述する
+          localStorage.setItem('userId', json[0]['id']);
+          localStorage.setItem('userName', json[0]['username']);
+          location.href = url + "menu";
+        })["catch"](function (err) {
+          alert("入力内容に誤りがあります");
         });
         /* ============ アカウント作成処理 ============ */
       } else if (app.mode == "signup") {
@@ -59490,8 +59484,7 @@ var app = new Vue({
           alert('パスワードは4文字以上、16文字以下で入力してください。');
         } else //パスワードが一致していたらアカウント作成のリクエストを送る
           {
-            // APIにPOSTリクエストを送る
-            fetch(url + "api/chs/create", {
+            fetch(url + "api/create", {
               method: "POST",
               headers: {
                 'Content-Type': 'application/json'
@@ -59508,35 +59501,27 @@ var app = new Vue({
               } // 200番以外のレスポンスはエラーを投げる
 
 
-              return response.json().then(function (json) {
-                throw new Error(json.message);
-              });
+              throw new Error();
             }).then(function (json) {
               // レスポンスが200番で返ってきたときの処理はここに記述する
-              //console.log("200が返ってきたよ");
               var content = JSON.stringify(json, null, 2);
               console.log(content); //returnした内容表示できる
+              //localStorage.setItem('token', json.token);
 
-              if (content != '0') {
-                //localStorage.setItem('token', json.token);
-                localStorage.setItem('userId', json[0]['id']);
-                localStorage.setItem('userName', app.user.userName);
-                location.href = url + "chs/menu/";
-              } else {
-                alert("そのユーザー名は既に使われています");
-              }
+              localStorage.setItem('userId', json[0]['id']);
+              localStorage.setItem('userName', app.user.userName);
+              location.href = url + "menu";
             })["catch"](function (err) {
-              // レスポンスがエラーで返ってきたときの処理はここに記述する
-              console.log("エラーが返ってきたよ");
+              alert("このユーザー名は既に使われています");
             });
-          }
-      }
-    }
-  },
-  created: function created() {// Vue.jsの読み込みが完了したときに実行する処理はここに記述する
-  },
-  computed: {//passwordの長さを調べる
-  }
+          } //else閉じ
+
+      } //else if閉じ
+
+    } //submit閉じ
+
+  } //method閉じ
+
 });
 
 /***/ }),

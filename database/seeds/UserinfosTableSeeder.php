@@ -14,10 +14,10 @@ class UserinfosTableSeeder extends Seeder
         for($i = 1 ; $i <= 4 ; $i++) {
 
             \App\Userinfo::create([
-                'name' => 'user'.$i,
+                'username' => 'user'.$i,
                 'password' => 'user'.$i,
-                'groups_id' => $i,
-                'groups' => 'test'.$i,
+                'groupid' => $i,
+                'groupname' => 'test'.$i,
             ]);
         }
     }

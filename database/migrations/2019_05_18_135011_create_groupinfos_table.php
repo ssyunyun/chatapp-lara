@@ -15,7 +15,7 @@ class CreateGroupinfosTable extends Migration
     {
         Schema::create('groupinfos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->string('groupname');
             $table->string('comment')->nullable();
             $table->string('userid')->nullable();
             $table->binary('icon')->nullable();

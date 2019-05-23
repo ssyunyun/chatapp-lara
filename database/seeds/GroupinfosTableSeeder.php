@@ -14,7 +14,7 @@ class GroupinfosTableSeeder extends Seeder
         for($i = 1 ; $i <= 4 ; $i++) {
 
             \App\Groupinfo::create([
-                'name' => 'test'.$i,
+                'groupname' => 'test'.$i,
                 'comment' => 'test用です',
                 'userid' => $i,
             ]);

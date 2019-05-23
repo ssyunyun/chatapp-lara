@@ -11,47 +11,23 @@
 |
 */
 
-Route::get('/', function () {
-    return view('test');
+/* View */
+Route::get('/login', function (){
+    return view('index');
 });
-
-
-
-/* ChsController */
-Route::get('/chs', 'ChsController@index');
-Route::get('/chs/menu', 'ChsController@menu');
-Route::get('/chs/menu/mypage', 'ChsController@mypage');
-Route::get('/chs/menu/setting', 'ChsController@setting');
-
-Route::get('/chs/menu/chat', 'ChsController@chat');
-
-Route::group(['middleware'=>['api']], function () {
-    Route::post('/chs/create', 'ChsController@create');
-    Route::post('/chs/login', 'ChsController@login');
-    Route::post('/chs/menu_db', 'ChsController@databaseInfo');
-    Route::post('/chs/menu/chat_db', 'ChatController@create'); // チャット登録
-    Route::post('/chs/menu/setting/newGroup', 'ChsController@newGroup'); // グループ作成
-    Route::post('/chs/menu/setting/invite', 'ChsController@invite'); // グループ作成
-    //Route::post('/chs/menu/chatInfo', 'ChatController@getTalk');
+Route::get('/menu', function (){
+    return view('menu');
+});
+Route::get('/mypage', function (){
+    return view('mypage');
+});
+Route::get('/setting', function (){
+    return view('setting');
+});
+Route::get('/chat', function (){
+    return view('chat');
 });
 
 
 /* ChatController */
-Route::get('/chs/menu/chat_db', 'ChatController@index'); // メッセージ一覧を取得
-Route::get('/chs/menu/chatInfo', 'ChatController@getTalk');
-
-
-
-
-
-
-/*
-Route::post('/chs/create', function(Request $request) {
-    echo '<pre>' . 'aaaaaa' . '</pre>';
-    return view('chs/index');
-});
-*/
-
-
-
-
+Route::get('/getComments', 'ChatController@getComments');// メッセージ一覧を取得
