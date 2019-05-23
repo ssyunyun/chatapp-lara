@@ -13,16 +13,21 @@ use Illuminate\Http\Request;
 |
 */
 
-/* UserController */
-Route::middleware('api')->post('/create', 'UserController@create');
-Route::middleware('api')->post('/login', 'UserController@login');
-//Route::middleware('api')->post('/getInfo', 'UserController@getInfo');
-//Route::middleware('api')->post('/changePass', 'UserController@changePass');
-Route::middleware('api')->patch('/changePass', 'UserController@changePass');
+Route::group(['middleware' => ['api']], function(){
+    
 
-/* GroupController */
-Route::middleware('api')->post('/createGroup', 'GroupController@createGroup');
-Route::middleware('api')->post('/inviteGroup', 'GroupController@inviteGroup');
+    Route::post('/create', 'UserController@create');
+    Route::post('/login', 'UserController@login');
 
-/* ChatController */
-Route::middleware('api')->post('/chat', 'ChatController@create');
+
+    /* SessionController */
+    Route::group(['middleware' => ['check.session', 'update.session']], function(){
+
+        Route::patch('/changePass', 'UserController@changePass');
+        Route::post('/createGroup', 'GroupController@createGroup');
+        Route::post('/inviteGroup', 'GroupController@inviteGroup');
+        Route::post('/chat', 'ChatController@create');
+       
+    });
+
+});

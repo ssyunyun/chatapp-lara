@@ -17,5 +17,4 @@ mix.js('resources/js/app.js', 'public/js')
    .js('resources/js/mypage.js', 'public/js')
    .js('resources/js/setting.js', 'public/js')
    .styles('resources/css/vue.css', 'public/css/vue.css')
-   //.sass('resources/sass/vue.scss', 'public/css')
    .sass('resources/sass/app.scss', 'public/css');

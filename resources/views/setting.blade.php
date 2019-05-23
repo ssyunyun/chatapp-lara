@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css">
+    <link rel="stylesheet" href="{{ asset('css/vue.css')}}">
     <title>Setting</title>
   </head>
 
@@ -19,7 +20,7 @@
           <button class="ui grey button" v-on:click="select2">招待</button>
         </div>
         <!-- *グループ作成* -->
-        <div class="field" v-if="mode=='create'">
+        <div class="field" v-if="mode=='create'" v-cloak>
           <div class="ui segment">
             <div class="field">
               <h2>新規グループ作成</h2>
@@ -45,7 +46,7 @@
           </div>
         </div>
         <!-- *グループ招待* -->
-        <div class="field" v-if="mode=='invite'">
+        <div class="field" v-if="mode=='invite'" v-cloak>
           <div class="ui segment">
             <div class="field">
               <h2>グループ招待</h2>

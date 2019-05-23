@@ -5,19 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css">
+    <link rel="stylesheet" href="{{ asset('css/vue.css')}}">
     <title>Chat</title>
   </head>
 
   <body>
+  qewqwe
     <div class="ui text container" id="chat">
       <a href="#" class="ui green button" onclick="javascript:window.history.back(-1);return false;">戻る</a> 
       <div class="ui comments">
         <h1 class="ui dividing header">Chat</h1>
-        <div class="ui header">
+        <div class="ui header" v-cloak>
           (グループ名 【 @{{ groupName }} 】 ,　 グループID 【 @{{ groupId }} 】)
         </div>
-        <div v-for="(c, i) in comments" >
-          @{{changeAlign(i)}}
+        <div v-for="(c, i) in comments" v-cloak>
+          <div v-cloak>
+            @{{changeAlign(i)}}
+          </div>
           <div v-bind:align="myAlign">
             <div class="ui compact message">
               <div class="comment">
@@ -26,7 +30,7 @@
                   <div class="metadata">
                     <span class="date">@{{c.created_at}}</span>
                   </div>
-                  <div class="text">
+                  <div class="text" cloak>
                     @{{c.comment}}
                   </div>
                 </div>
@@ -39,7 +43,7 @@
             <textarea v-model="comment"></textarea>
           </div>
           <div class="ui blue labeled submit icon button" v-on:click="send">
-            <i class="icon edit"></i> Submit
+            <i class="icon edit" v-bind:align="right"></i> Submit
           </div>
         </form>
       </div>

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\SessionController;
 
 class UserController extends Controller
 {
@@ -43,6 +45,7 @@ class UserController extends Controller
         $userName = $body['userName'];
         $password = $body['password'];
         $time = Carbon::now();
+        $token = str::random(10);
         
         $hashedPassword = hash('sha256',$password);
 
@@ -51,7 +54,12 @@ class UserController extends Controller
             ->where('password', $hashedPassword)
             ->get();
 
-        return $data;
+        $controller = new SessionController;//インスタンス化
+        
+        $a = $controller->startSession($userId, $token);
+
+        return 1;
+        return [$data, $token];
     }
 
 
