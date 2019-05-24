@@ -59,7 +59,10 @@ const setting = new Vue({
           	.then(function(json) {
 				var content = JSON.stringify(json, null, 2);  
               	// レスポンスが200番で返ってきたときの処理はここに記述する
-              	if(content == '1') alert("新規グループを作成しました！");
+              	if(content == '1'){
+					alert("新規グループを作成しました！");
+					invitedUserId = '';
+				  }
               	if(content == '0') alert("存在しないユーザー情報が含まれています");
             })
           	.catch(function(err) {
@@ -107,7 +110,10 @@ const setting = new Vue({
                 var content = JSON.stringify(json, null, 2);  
                 console.log(content);
 
-				if(content == '1') alert("ユーザーを追加しました！");
+				if(content == '1'){
+					alert("ユーザーを追加しました！");
+					invitedUserId = '';
+				}
 				if(content == '0') alert("存在しないIDが入力されています");
 			})
 			.catch(function(err) {
