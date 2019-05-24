@@ -21,7 +21,7 @@ class CheckSession
         $userId = $request->header('userId');
         $token = $request->header('token');
 
-        $controller = new SessionController;//インスタンス化
+        $controller = new SessionController;
         
         $check = $controller->checkSession((string)$userId, (string)$token);
         

@@ -20,7 +20,7 @@ class UpdateSession
 
         $userId = $request->header('userId');
 
-        $controller = new SessionController;//インスタンス化
+        $controller = new SessionController;
         $controller->updateVisitTime($userId);
 
         return $response;

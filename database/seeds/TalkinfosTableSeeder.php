@@ -11,6 +11,7 @@ class TalkinfosTableSeeder extends Seeder
      */
     public function run()
     {
+        
         for($i = 1 ; $i <= 3 ; $i++) {
 
             \App\Talkinfo::create([
@@ -20,6 +21,7 @@ class TalkinfosTableSeeder extends Seeder
                 'groupid' => 1,
             ]);
         }
+        
     
     }
 }
