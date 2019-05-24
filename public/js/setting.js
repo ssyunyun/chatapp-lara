@@ -59545,8 +59545,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]); //url = "http://127.0.0.1:8000/";
-
+Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]);
 var setting = new Vue({
   el: "#setting",
   data: {
@@ -59573,15 +59572,6 @@ var setting = new Vue({
 
       Id_seq = adjustArray(Id_split);
       if (Id_seq == 0) return 0;
-      /*
-      console.log("送るもの確認");
-      console.log(setting.groupName);
-      console.log(setting.groupComment);
-      console.log(Id_split);
-      console.log(Id_seq);
-      console.log("送るもの確認終了");
-      */
-
       fetch(url + "api/createGroup", {
         method: "POST",
         headers: {
@@ -59596,7 +59586,6 @@ var setting = new Vue({
           "Id_seq": Id_seq
         })
       }).then(function (response) {
-        console.log("response受け取ったよ-----");
         console.log(response);
 
         if (response.status == 200) {
@@ -59610,8 +59599,14 @@ var setting = new Vue({
       }).then(function (json) {
         var content = JSON.stringify(json, null, 2); // レスポンスが200番で返ってきたときの処理はここに記述する
 
-        if (content == '1') alert("新規グループを作成しました！");
+        if (content == '1') {
+          alert("新規グループを作成しました！");
+        }
+
         if (content == '0') alert("存在しないユーザー情報が含まれています");
+        setting.groupName = '';
+        setting.groupComment = '';
+        setting.invitedUserId = '';
       })["catch"](function (err) {
         // レスポンスがエラーで返ってきたときの処理はここに記述する
         console.log("Error.");
@@ -59625,7 +59620,6 @@ var setting = new Vue({
 
       Id_seq = adjustArray(Id_split);
       if (Id_seq == 0) return 0;
-      console.log("====================");
       fetch(url + "api/inviteGroup", {
         method: "POST",
         headers: {
@@ -59655,6 +59649,8 @@ var setting = new Vue({
         console.log(content);
         if (content == '1') alert("ユーザーを追加しました！");
         if (content == '0') alert("存在しないIDが入力されています");
+        setting.invitedGroupId = '';
+        setting.invitedUserId = '';
       })["catch"](function (err) {
         console.log("Error.");
       });
@@ -59679,9 +59675,8 @@ function adjustArray(Id_split) {
     }
 
     if (Id_split[i] == '') Id_split.splice(i, 1); //空の要素は削除    
-  }
+  } //調整した配列から正しい文字列に繋ぎなおす
 
-  console.log("kokodayo"); //調整した配列から正しい文字列に繋ぎなおす
 
   for (var i = 0; i < Id_split.length; i++) {
     if (i == 0) {

@@ -61,9 +61,11 @@ const setting = new Vue({
               	// レスポンスが200番で返ってきたときの処理はここに記述する
               	if(content == '1'){
 					alert("新規グループを作成しました！");
-					invitedUserId = '';
-				  }
-              	if(content == '0') alert("存在しないユーザー情報が含まれています");
+				}
+				if(content == '0') alert("存在しないユーザー情報が含まれています");
+				setting.groupName = '';
+				setting.groupComment = '';
+				setting.invitedUserId = '';
             })
           	.catch(function(err) {
               	// レスポンスがエラーで返ってきたときの処理はここに記述する
@@ -110,11 +112,10 @@ const setting = new Vue({
                 var content = JSON.stringify(json, null, 2);  
                 console.log(content);
 
-				if(content == '1'){
-					alert("ユーザーを追加しました！");
-					invitedUserId = '';
-				}
+				if(content == '1') alert("ユーザーを追加しました！");
 				if(content == '0') alert("存在しないIDが入力されています");
+				setting.invitedGroupId = '';
+				setting.invitedUserId = '';
 			})
 			.catch(function(err) {
 				console.log("Error.");
